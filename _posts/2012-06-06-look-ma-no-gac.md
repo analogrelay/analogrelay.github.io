@@ -11,7 +11,7 @@ If you've done any work with the open-source ASP.Net Web Stack (on [Codeplex](ht
 
 **WARNING**: This is totally unsupported. I'm happy to help in the comments but if you call Product Support they won't help you with this!
 
-## Step 0: Capture Binaries
+### Step 0: Capture Binaries
 Before you go uninstalling stuff, you should do one of these two things:
 
 1. Grab the assemblies necessary for VS BEFORE uninstalling OR
@@ -25,7 +25,7 @@ If you aren't prepared to do #2, make sure you do #1! The Assemblies are in `C:\
 * System.Web.WebPages.dll
 * System.Web.Mvc.dll
 
-## Step 1: UnGACing
+### Step 1: UnGACing
 
 The first step is simply to remove the assemblies from the GAC. We only need to remove the "V2" Assemblies ("V4" for MVC related assemblies) because the GAC'd copy of v1 (v3 for MVC) won't interfere with a version you build from source. NOTE: This will put Razor IntelliSense and other Visual Studio features relating to MVC in a somewhat broken state, but we'll fix that in Step 2.
 
@@ -45,7 +45,7 @@ Click through the prompts and click "Yes" when you are asked to confirm even tho
 
     gwmi Win32_Product | where { $_.Name -eq "Microsoft ASP.Net Web Pages 2 Runtime" } | ForEach { $msi = Convert-Path "$($_.InstallSource)\*.msi"; msiexec /x $msi }
 
-## Step 2: Fixing VS.
+### Step 2: Fixing VS.
 Now, some of the VS tooling will be broken :(. Pretty much just Razor IntelliSense but that's one of the best features! (Though I may be biased ;)). VS tries to load System.Web.Razor (and some other friends) in order to parse Razor documents, but in Step 1, we removed it from the GAC and VS doesn't have a local copy, so it doesn't know where to find them!
 
 The fix for this is simple: Give VS a local copy! So, first grab the binaries from Step 0 (if you collected them), or build new binaries from our source code (just follow the steps on our [CodePlex](http://aspnetwebstack.codeplex.com) site and then grab the binaries from the bin folder). Then, copy them to the following folder:
@@ -54,7 +54,7 @@ The fix for this is simple: Give VS a local copy! So, first grab the binaries fr
 
 Of course, replace "Program Files (x86)" with "Program Files" if you're on a 32-bit OS. And replace "Microsoft Visual Studio 11.0" with "Microsoft Visual Studio 2010" if you're using VS 2010. Restart VS and you should have IntelliSense! If you run in to issues, try building your project and restarting VS.
 
-## Wrapping up
+### Wrapping up
 That should be it! Now, please note that this is very unsupported. It works, but if you bork your VS installation, you're on your own. Ok, not totally on your own, I'm happy to try helping in the comments, but don't call support because they won't help you with this!
 
 If you get totally screwed, then you can either: repair VS if you're using VS 2012, or reinstall MVC 4 if you're using VS 2010. That should put you back in a known state.
