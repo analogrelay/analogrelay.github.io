@@ -7,6 +7,8 @@ tags: ['.net', 'tips', 'performance']
 ---
 {% include JB/setup %}
 
+**Update**: Due to a glitch in my code I miscalculated the difference. It has been updated. See full history of the code in the [Gist](https://gist.github.com/anurse/4992468). The outcome is still essentially the same :)
+
 I was talking with [David Fowler](https://twitter.com/davidfowl) when he mentioned something I found surprising: "Lambdas are more efficient than Method Groups". My initial reaction was that he was entirely wrong, but he explained why and then I decided to do some analysis. Here's what I found.
 
 I wrote a simple program that would pass a method group in to a method in a big loop:
@@ -41,19 +43,21 @@ I put in some simple Stopwatch-based timing and Console.ReadLine calls to allow 
 
 	Running Method Group Test
 	Finished Method Group Test
-	Elapsed: 1.5085E+006ns
-	Average: 1.5085E-002ns
+	Elapsed: 1.5171E+006ns
+	Average: 1.5171E-002ns
 	High-Precision? Yes
 	Press Enter to Continue
 
 	Running Lambda Test
 	Finished Lambda Test
-	Elapsed: 9.3071E+002ns
-	Average: 9.3071E-006ns
+	Elapsed: 9.9125E+005ns
+	Average: 9.9125E-003ns
 	High-Precision? Yes
 	Press Enter to End
 
-The lambda case is faster by 10000x! Note the difference in exponent (we're dealing with tiny numbers). Ok, what about memory. So I pulled up perfmon and added the .NET "Allocated Bytes/sec" counter. I'm not sure if that's the right one, but it certainly seemed to illustrate the point. This is what I saw:
+The lambda case is noticibly faster! Note the difference in exponent (we're dealing with tiny numbers). Ok, so not much faster, but still, that's a significant result. 
+
+Now, what about memory. So I pulled up perfmon and added the .NET "Allocated Bytes/sec" counter. I'm not sure if that's the right one, but it certainly seemed to illustrate the point. This is what I saw:
 
 <img src="/assets/2013-02-19-lambdas-vs-method-groups/graph.gif" alt="Perfmon" />
 
