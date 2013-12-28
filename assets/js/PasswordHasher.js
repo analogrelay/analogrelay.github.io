@@ -71,7 +71,7 @@ function update(clip)
         else if (document.getElementById("s24").checked) hashWordSize = 24;
         else if (document.getElementById("s26").checked) hashWordSize = 26;
         hashWord.value = PassHashCommon.generateHashWord(
-                siteTag.value,
+                siteTag.value.toLowerCase(),
                 masterKey.value,
                 hashWordSize,
                 requireDigit,
