@@ -3,6 +3,10 @@ body {
 	font-family:"Segoe UI","Segoe WP","Helvetica Neue",'RobotoRegular',sans-serif;
 }
 
+.monospace {
+	font-family:"Consolas","Lucida Console", monospace;
+}
+
 code { padding-left: 0; }
 pre {
 	white-space: pre-wrap;       /* css-3 */
