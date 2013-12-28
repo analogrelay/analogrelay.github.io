@@ -3,7 +3,7 @@ body {
 	font-family:"Segoe UI","Segoe WP","Helvetica Neue",'RobotoRegular',sans-serif;
 }
 
-.monospace {
+input[type="text"].monospace, .monospace {
 	font-family:"Consolas","Lucida Console", monospace;
 }
 
